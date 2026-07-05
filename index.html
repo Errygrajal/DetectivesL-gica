@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detectives de la Lógica</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>🕵️ Detectives de la Lógica</h1>
+
+    <div id="inicio">
+
+        <h2>Ingrese su nombre</h2>
+
+        <input type="text" id="nombre">
+
+        <button onclick="iniciarJuego()">
+            Iniciar Juego
+        </button>
+
+    </div>
+
+    <div id="juego" style="display:none;">
+
+        <h3 id="temporizador"></h3>
+
+        <h2 id="pregunta"></h2>
+
+        <div id="opciones"></div>
+
+        <h3>Puntaje: <span id="puntaje">0</span></h3>
+
+        <progress id="barra" value="0" max="4"></progress>
+
+    </div>
+
+    <div id="final" style="display:none;">
+
+        <h1>Juego Finalizado</h1>
+
+        <h2 id="resultado"></h2>
+
+        <button onclick="location.reload()">
+            Jugar nuevamente
+        </button>
+
+    </div>
+
+</div>
+
+<script src="js/juego.js"></script>
+
+</body>
+</html>
