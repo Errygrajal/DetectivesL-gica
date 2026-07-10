@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detectives de la Lógica</title>
 
     <link rel="stylesheet" href="style.css">
@@ -10,51 +11,106 @@
 
 <body>
 
-<div class="contenedor">
+    <div class="contenedor">
 
-    <h1>🕵️ Detectives de la Lógica</h1>
+        <h1>🕵️ Detectives de la Lógica</h1>
 
-    <div id="inicio">
+        <!-- Pantalla de inicio -->
+        <div id="inicio">
 
-        <h2>Ingrese su nombre</h2>
+            <h2>Descripción</h2>
 
-        <input type="text" id="nombre">
+            <p>
+                Eres un detective de la lógica que debe resolver desafíos relacionados
+                con leyes de conjuntos y reglas de inferencia para salvar la ciudad de
+                Logic City. Cada respuesta correcta te otorgará puntos y te acercará
+                a convertirte en el mejor detective.
+            </p>
 
-        <button onclick="iniciarJuego()">
-            Iniciar Juego
-        </button>
+            <h2>Instrucciones</h2>
+
+            <ul class="instrucciones">
+                <li>Ingresa tu nombre.</li>
+                <li>Lee cuidadosamente cada pregunta.</li>
+                <li>Selecciona una respuesta.</li>
+                <li>Recibirás retroalimentación inmediata.</li>
+                <li>Cada respuesta correcta vale 10 puntos.</li>
+                <li>Intenta obtener la puntuación más alta.</li>
+                <li>Dispones de 3 minutos para completar el desafío.</li>
+            </ul>
+
+            <br>
+
+            <h2>Ingrese su nombre</h2>
+
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Ingrese su nombre">
+
+            <br><br>
+
+            <button onclick="iniciarJuego()">
+                🚀 Iniciar Juego
+            </button>
+
+        </div>
+
+        <!-- Pantalla del juego -->
+        <div id="juego" style="display:none;">
+
+            <h3 id="temporizador">
+                ⏰ Tiempo: 180
+            </h3>
+
+            <h3 id="contadorPreguntas">
+                Pregunta 1
+            </h3>
+
+            <progress
+                id="barra"
+                value="0"
+                max="20">
+            </progress>
+
+            <h2 id="pregunta"></h2>
+
+            <div id="opciones"></div>
+
+            <h3>
+                Puntaje:
+                <span id="puntaje">0</span>
+            </h3>
+
+        </div>
+
+        <!-- Pantalla final -->
+        <div id="final" style="display:none;">
+
+            <h1>🎉 Juego Finalizado</h1>
+
+            <h2 id="resultado"></h2>
+
+            <h2 id="medalla"></h2>
+
+            <hr>
+
+            <h2>🏆 Top 3 Detectives</h2>
+
+            <div id="ranking"></div>
+
+            <br>
+
+            <button onclick="location.reload()">
+                🔄 Jugar Nuevamente
+            </button>
+
+        </div>
 
     </div>
 
-    <div id="juego" style="display:none;">
-
-        <h3 id="temporizador"></h3>
-
-        <h2 id="pregunta"></h2>
-
-        <div id="opciones"></div>
-
-        <h3>Puntaje: <span id="puntaje">0</span></h3>
-
-        <progress id="barra" value="0" max="4"></progress>
-
-    </div>
-
-    <div id="final" style="display:none;">
-
-        <h1>Juego Finalizado</h1>
-
-        <h2 id="resultado"></h2>
-
-        <button onclick="location.reload()">
-            Jugar nuevamente
-        </button>
-
-    </div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
