@@ -1,10 +1,10 @@
 let puntaje = 0;
 let indice = 0;
-let tiempo = 180;
+let tiempo = 60;
 let intervalo;
 
 const preguntas = [
-
+    
 {
     expresion: "Paso: (A ∪ B)' \n¿Cuál ley nos permite transformarlo en A' ∩ B'?",
     opciones: [
@@ -131,116 +131,110 @@ const preguntas = [
 
 function iniciarJuego(){
 
-let nombre = document.getElementById("nombre").value.trim();
+let nombre =
+document.getElementById("nombre").value;
 
-if(nombre === ""){
-alert("Ingrese su nombre");
+if(nombre==""){
+
+alert("Digite su nombre");
+
 return;
+
 }
 
-document.getElementById("inicio").style.display = "none";
-document.getElementById("juego").style.display = "block";
+document.getElementById("inicio")
+.style.display="none";
 
-document.getElementById("temporizador").innerHTML =
-"⏰ Tiempo: " + tiempo;
+document.getElementById("juego")
+.style.display="block";
 
 mostrarPregunta();
-
-intervalo = setInterval(reloj,1000);
+intervalo=setInterval(reloj,1000);
 }
 
 function reloj(){
 
 tiempo--;
-
-document.getElementById("temporizador").innerHTML =
-"⏰ Tiempo: " + tiempo;
-
-if(tiempo <= 0){
+document.getElementById("temporizador")
+.innerHTML=
+"⏰ Tiempo: "+tiempo;
+if(tiempo<=0){
 finalizar();
 }
 }
 
 function mostrarPregunta(){
+let p =
+preguntas[indice];
 
-    let p = preguntas[indice]; 
+document.getElementById("pregunta")
+.innerHTML=
+p.pregunta;
 
-    document.getElementById("contadorPreguntas").innerHTML = 
-    "Pregunta " + (indice + 1) + " de " + preguntas.length; 
+let html="";
 
-    document.getElementById("pregunta").innerHTML = 
-    p.expresion.replace(/\n/g, "<br>"); 
+for(let i=0;i<p.opciones.length;i++){
 
-    let opcionesHTML = ""; 
 
-    for(let i = 0; i < p.opciones.length; i++){
+html +=
 
-        opcionesHTML += `
-            <button class="opcion" onclick="verificar(${i})">
-                ${p.opciones[i]}
-            </button>
-        `;
+`
 
-    }
+<button onclick="verificar(${i})">
 
-    document.getElementById("opciones").innerHTML = opcionesHTML;
+${p.opciones[i]}
 
-    document.getElementById("barra").max = preguntas.length;
-    document.getElementById("barra").value = indice + 1;
+</button>
+
+`;
 
 }
 
-function verificar(opcion){
+document.getElementById("opciones")
+.innerHTML=html;
 
-    let preguntaActual = preguntas[indice];
+document.getElementById("barra")
+.value=indice;
+}
 
-    let mensaje = "";
+function verificar(respuesta){
 
-    if(opcion === preguntaActual.correcta){
+let p=preguntas[indice];
 
-        puntaje += 10;
+if(respuesta==p.correcta){
 
-        mensaje =
-        "<h3>✅ Correcto</h3>" +
-        "<p><b>Explicación:</b> " +
-        preguntaActual.explicacion +
-        "</p>" +
-        "<p><b>Retroalimentación:</b> " +
-        preguntaActual.retroalimentacion +
-        "</p>";
+puntaje+=10;
 
-    }else{
+alert(
+"✅ Correcto\n\n"+
+p.explicacion
+);
+}
+else{
+alert(
+"❌ Incorrecto\n\n"+
+p.explicacion
+);
+}
 
-        mensaje =
-        "<h3>❌ Incorrecto</h3>" +
-        "<p><b>Explicación:</b> " +
-        preguntaActual.explicacion +
-        "</p>" +
-        "<p><b>Retroalimentación:</b> " +
-        preguntaActual.retroalimentacion +
-        "</p>";
-    }
+document.getElementById("puntaje")
+.innerHTML=puntaje;
 
-    document.getElementById("retroalimentacion").innerHTML =
-    mensaje;
+indice++;
 
-    document.getElementById("puntaje").innerHTML =
-    puntaje;
+if(indice>=preguntas.length){
 
-    // Espera 4 segundos antes de pasar a la siguiente pregunta
-    setTimeout(() => {
-
-        indice++;
-
-        if(indice >= preguntas.length){
-            finalizar();
-        }else{
-            mostrarPregunta();
-        }
-
-    }, 4000);
+finalizar();
 
 }
+
+else{
+
+mostrarPregunta();
+
+}
+}
+
 
 function finalizar(){
 
