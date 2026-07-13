@@ -165,6 +165,8 @@ function mostrarPregunta(){
 
 let p = preguntas[indice];
 
+document.getElementById("retroalimentacion").innerHTML = "";
+
 document.getElementById("contadorPreguntas").innerHTML =
 "Pregunta " + (indice + 1) + " de " + preguntas.length;
 
@@ -198,19 +200,17 @@ let preguntaActual = preguntas[indice];
 
 if(opcion === preguntaActual.correcta){
 
-puntaje += 10;
+    puntaje += 10;
 
-alert(
-"✅ Correcto\n\n" +
-preguntaActual.explicacion
-);
+    document.getElementById("retroalimentacion").innerHTML =
+    "✅ Correcto<br><br>" +
+    preguntaActual.explicacion;
 
 }else{
 
-alert(
-"❌ Incorrecto\n\n" +
-preguntaActual.explicacion
-);
+    document.getElementById("retroalimentacion").innerHTML =
+    "❌ Incorrecto<br><br>" +
+    preguntaActual.explicacion;
 }
 
 document.getElementById("puntaje").innerHTML =

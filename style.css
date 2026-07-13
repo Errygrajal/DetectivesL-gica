@@ -146,6 +146,15 @@ progress::-webkit-progress-value{
     font-size:18px;
 }
 
+#retroalimentacion{
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    background:#f4f4f4;
+    font-size:18px;
+    font-weight:bold;
+}
+
 hr{
     margin:25px 0;
     border:1px solid #475569;
