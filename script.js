@@ -196,33 +196,54 @@ indice;
 
 function verificar(opcion){
 
-let preguntaActual = preguntas[indice];
+    let preguntaActual = preguntas[indice];
 
-if(opcion === preguntaActual.correcta){
+    let mensaje = "";
 
-    puntaje += 10;
+    if(opcion === preguntaActual.correcta){
+
+        puntaje += 10;
+
+        mensaje =
+        "<h3>✅ Correcto</h3>" +
+        "<p><b>Explicación:</b> " +
+        preguntaActual.explicacion +
+        "</p>" +
+        "<p><b>Retroalimentación:</b> " +
+        preguntaActual.retroalimentacion +
+        "</p>";
+
+    }else{
+
+        mensaje =
+        "<h3>❌ Incorrecto</h3>" +
+        "<p><b>Explicación:</b> " +
+        preguntaActual.explicacion +
+        "</p>" +
+        "<p><b>Retroalimentación:</b> " +
+        preguntaActual.retroalimentacion +
+        "</p>";
+    }
 
     document.getElementById("retroalimentacion").innerHTML =
-    "✅ Correcto<br><br>" +
-    preguntaActual.explicacion;
+    mensaje;
 
-}else{
+    document.getElementById("puntaje").innerHTML =
+    puntaje;
 
-    document.getElementById("retroalimentacion").innerHTML =
-    "❌ Incorrecto<br><br>" +
-    preguntaActual.explicacion;
-}
+    // Espera 4 segundos antes de pasar a la siguiente pregunta
+    setTimeout(() => {
 
-document.getElementById("puntaje").innerHTML =
-puntaje;
+        indice++;
 
-indice++;
+        if(indice >= preguntas.length){
+            finalizar();
+        }else{
+            mostrarPregunta();
+        }
 
-if(indice >= preguntas.length){
-finalizar();
-}else{
-mostrarPregunta();
-}
+    }, 4000);
+
 }
 
 function finalizar(){
