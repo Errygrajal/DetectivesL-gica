@@ -163,18 +163,32 @@ finalizar();
 
 function mostrarPregunta(){
 
-let p = preguntas[indice]; 
-document.getElementById("contadorPreguntas").innerHTML = "Pregunta " + (indice + 1) + " de " + preguntas.length; 
+    let p = preguntas[indice]; 
 
-document.getElementById("pregunta").innerHTML = p.expresion; 
+    document.getElementById("contadorPreguntas").innerHTML = 
+    "Pregunta " + (indice + 1) + " de " + preguntas.length; 
 
-let opcionesHTML = ""; 
+    document.getElementById("pregunta").innerHTML = 
+    p.expresion.replace(/\n/g, "<br>"); 
 
-for(let i = 0; i < p.opciones.length; i++){ opcionesHTML += <button onclick="verificar(${i})"> ${p.opciones[i]} </button> ; } 
+    let opcionesHTML = ""; 
 
-document.getElementById("opciones").innerHTML = opcionesHTML; 
-document.getElementById("barra").max = preguntas.length; 
-document.getElementById("barra").value = indice; }
+    for(let i = 0; i < p.opciones.length; i++){
+
+        opcionesHTML += `
+            <button class="opcion" onclick="verificar(${i})">
+                ${p.opciones[i]}
+            </button>
+        `;
+
+    }
+
+    document.getElementById("opciones").innerHTML = opcionesHTML;
+
+    document.getElementById("barra").max = preguntas.length;
+    document.getElementById("barra").value = indice + 1;
+
+}
 
 function verificar(opcion){
 
