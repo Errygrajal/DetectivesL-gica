@@ -1,6 +1,6 @@
 let puntaje = 0;
 let indice = 0;
-let tiempo = 60;
+let tiempo = 180;
 let intervalo;
 
 const preguntas = [
@@ -30,27 +30,27 @@ const preguntas = [
 },
 
 {
-    expresion: "Clasifica el siguiente conjunto:\nA = { x ∈ ℝ / x² + x + 1 = 0 }",
+    expresion: "Paso 1: (A ∪ (A ∩ B)\n¿Qué ley aplicamos para obtener  A",
     opciones: [
-        "Conjunto Vacío",
-        "Conjunto No Vacío",
-        "Conjunto Universo"
+        "Ley De Morgan",
+        "Ley De Absorción",
+        "Ley Distributiva"
     ],
-    correcta: 0,
+    correcta: 2,
     explicacion: "El discriminante es negativo, por lo que no existen soluciones reales.",
     retroalimentacion: "No hay números reales que satisfagan la ecuación."
 },
 
 {
-    expresion: "Describa por extensión el siguiente conjunto:\n{ x / x ∈ ℚ , x² = 3 }",
+    expresion: "¿Qué ley lógica indica que P ∨ P ≡ P?",
     opciones: [
-        "{2}",
-        "∅",
-        "{4,5,6,7}"
+        "Ley Asociativa",
+        "Ley De Idempotenpotencia",
+        "Ley De  Absorción"
     ],
     correcta: 1,
-    explicacion: "Las raíces de 3 son irracionales.",
-    retroalimentacion: "Ningún número racional cumple la condición."
+    explicacion: "Genial La conectiva lógica 'O' tiene una sola condición para ser verdadera: al menos una de las dos partes tiene que ser verdadera",
+    retroalimentacion: "¡Ups! la ley de idempotencia simplemente dice que repetir la misma información no agrega nada nuevo. El valor de verdad sigue siendo exactamente el mismo..."
 },
 
 {
@@ -102,7 +102,22 @@ const preguntas = [
 },
 
 {
-    expresion: "Argumento:\nSi sale cara, yo gano.\nSi sale cruz, tú no ganas.\nSale cruz.\n...\nDetermine la regla utilizada para la conclusión 9: gano",
+    expresion: `Argumento:
+Si sale cara, yo gano.
+Si sale cruz, tú no ganas.
+Sale cruz.
+...
+<br>1. cara → gano Premisa
+<br>2. cruz → ¬ganas Premisa
+<br>3. cruz Premisa
+<br>4. cara ↔ ¬cruz Premisa
+<br>5. ganas ↔ ¬gano Premisa
+<br>6. ¬ganas
+<br>7. ¬gano → ganas
+<br>8. ¬¬gano
+<br>9. gano
+
+<br>Determine la regla utilizada para la conclusión 9: gano`,
     opciones: [
         "Modus Tollens de 6 y 7",
         "Doble Negación de 8",
@@ -169,7 +184,7 @@ preguntas[indice];
 
 document.getElementById("pregunta")
 .innerHTML=
-p.pregunta;
+p.expresion;
 
 let html="";
 
@@ -198,41 +213,49 @@ document.getElementById("barra")
 }
 
 function verificar(respuesta){
+    let p = preguntas[indice];
 
-let p=preguntas[indice];
+    // Pausamos el reloj para que lean la respuesta tranquilos
+    clearInterval(intervalo); 
 
-if(respuesta==p.correcta){
+    // Buscamos los elementos del cuadro flotante
+    let modal = document.getElementById("miModal");
+    let titulo = document.getElementById("modalTitulo");
+    let texto = document.getElementById("modalTexto");
 
-puntaje+=10;
+    if(respuesta == p.correcta){
+        puntaje += 10;
+        titulo.innerHTML = "🎉 ¡Excelente!";
+        titulo.style.color = "#4CAF50"; // Verde para acierto
+        texto.innerHTML = p.explicacion;
+    }
+    else {
+        titulo.innerHTML = "❌ ¡Incorrecto!";
+        titulo.style.color = "#F44336"; // Rojo para error
+        texto.innerHTML = p.explicacion;
+    }
 
-alert(
-"✅ Correcto\n\n"+
-p.explicacion
-);
+    // Mostramos el cuadro flotante usando flexbox
+    modal.style.display = "flex";
+
+    // Actualizamos el puntaje en la pantalla de fondo
+    document.getElementById("puntaje").innerHTML = puntaje;
 }
-else{
-alert(
-"❌ Incorrecto\n\n"+
-p.explicacion
-);
-}
 
-document.getElementById("puntaje")
-.innerHTML=puntaje;
+function cerrarModal(){
+    // Ocultamos el cuadro flotante
+    document.getElementById("miModal").style.display = "none";
+    
+    // Pasamos a la siguiente pregunta
+    indice++;
 
-indice++;
-
-if(indice>=preguntas.length){
-
-finalizar();
-
-}
-
-else{
-
-mostrarPregunta();
-
-}
+    if(indice >= preguntas.length){
+        finalizar();
+    } else {
+        // Volvemos a activar el reloj y mostramos la siguiente pregunta
+        intervalo = setInterval(reloj, 1000); 
+        mostrarPregunta();
+    }
 }
 
 
